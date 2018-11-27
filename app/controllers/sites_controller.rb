@@ -1,2 +1,2 @@
-class SitesController < ApplicationController
+class SitesController < ApiController
 end
