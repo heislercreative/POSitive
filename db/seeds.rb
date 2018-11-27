@@ -7,4 +7,5 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-User.create(email: 'brennan@heislercreative.com', password: 'testpw', business_name: 'Heisler Creative Services', first_name: 'Brennan', last_name: 'Heisler', address: '1234 Wamapoke Way', city: 'Pawnee', state_initials: 'IN', zip: 47424, phone: 5555545555)
+heisler_creative = User.create(email: 'brennan@heislercreative.com', password: 'testpw', business_name: 'Heisler Creative Services', first_name: 'Brennan', last_name: 'Heisler', address: '1234 Wamapoke Way', city: 'Pawnee', state_initials: 'IN', zip: 47424, phone: 5555545555)
+heisler_creative.sites.create(platform: 'Facebook', profile_url: 'https://www.facebook.com/heislercreative/', active: true, priority: 1)
