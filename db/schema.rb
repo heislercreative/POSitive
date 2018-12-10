@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 2018_11_27_013508) do
     t.string "profile_url"
     t.boolean "active"
     t.integer "priority"
+    t.float "rating"
     t.integer "user_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
