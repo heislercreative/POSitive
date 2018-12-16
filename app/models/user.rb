@@ -24,4 +24,13 @@ class User < ApplicationRecord
       google_rating = google_page.css("span.section-star-display").text
       google_rating
     end
+
+    def profile_scraper
+      # page = open "http://www.google.com/search?num=100&q=stackoverflow"
+      page = open "http://www.google.com/search?num=20&q=vanguardskinspecialists"
+      html = Nokogiri::HTML page
+      html.search("cite").each do |cite|
+        puts cite.inner_text
+      end
+    end
 end
