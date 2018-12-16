@@ -20,12 +20,14 @@ class User < ApplicationRecord
     # end
 
     def scrape_google
-      google_page = Nokogiri::HTML(open("https://goo.gl/maps/JpbzkpErtkv"))
-      google_rating = google_page.css("span.section-star-display").text
-      google_rating
+      slug = self.business_name.gsub(/\s+/, "")
+      html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
+      google_rating = html.css("span.ul7Gbc").text.to_f
+      site = self.sites.where(platform: 'Google').first
+      Site.where(id: site[:id]).update(rating: google_rating)
     end
 
-    def profile_scraper
+    def profile_search
       slug = self.business_name.gsub(/\s+/, "")
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       html.search("cite").each do |cite|
