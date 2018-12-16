@@ -26,9 +26,8 @@ class User < ApplicationRecord
     end
 
     def profile_scraper
-      # page = open "http://www.google.com/search?num=100&q=stackoverflow"
-      page = open "http://www.google.com/search?num=20&q=vanguardskinspecialists"
-      html = Nokogiri::HTML page
+      slug = self.business_name.gsub(/\s+/, "")
+      html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       html.search("cite").each do |cite|
         puts cite.inner_text
       end
