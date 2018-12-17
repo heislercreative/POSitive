@@ -23,8 +23,7 @@ class User < ApplicationRecord
       slug = self.business_name.gsub(/\s+/, "")
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       google_rating = html.css("span.ul7Gbc").text.to_f
-      site = self.sites.where(platform: 'Google').first
-      Site.where(id: site[:id]).update(rating: google_rating)
+      Site.where("user_id = ? and platform = ?", "#{self.id}", "Google").update(rating: google_rating)
     end
 
     def profile_search
