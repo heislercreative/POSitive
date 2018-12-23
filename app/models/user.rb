@@ -36,7 +36,17 @@ class User < ApplicationRecord
       self.slugify if !self.slug
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       html.search("cite").each do |cite|
-        puts cite.inner_text
+        url = cite.inner_text
+        if url.include? "facebook"
+          puts "Found Facebook profile"
+          puts url
+        elsif url.include? "yelp"
+          puts "Found Yelp profile"
+          puts url
+        elsif url.include? "healthgrades"
+          puts "Found Healthgrades profile"
+          puts url
+        end
       end
     end
 end
