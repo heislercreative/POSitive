@@ -60,6 +60,7 @@ ActiveRecord::Schema.define(version: 2018_11_27_013508) do
     t.string "state_initials"
     t.integer "zip"
     t.integer "phone"
+    t.string "slug"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

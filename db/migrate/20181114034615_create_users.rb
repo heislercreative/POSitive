@@ -11,6 +11,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :state_initials
       t.integer :zip
       t.integer :phone
+      t.string :slug
 
       t.timestamps
     end
