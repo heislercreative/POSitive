@@ -19,15 +19,21 @@ class User < ApplicationRecord
     #   yelp_title
     # end
 
+    # Move to Create route in UsersController
+    def slugify
+      self.slug = self.business_name.gsub(/\s+/, "").downcase
+      puts "Slugified!"
+    end
+
     def scrape_google
-      slug = self.business_name.gsub(/\s+/, "")
+      self.slugify if !self.slug
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       google_rating = html.css("span.ul7Gbc").text.to_f
       Site.where("user_id = ? and platform = ?", "#{self.id}", "Google").update(rating: google_rating)
     end
 
     def profile_search
-      slug = self.business_name.gsub(/\s+/, "")
+      self.slugify if !self.slug
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       html.search("cite").each do |cite|
         puts cite.inner_text
