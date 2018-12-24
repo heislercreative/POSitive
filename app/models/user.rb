@@ -40,9 +40,17 @@ class User < ApplicationRecord
         if url.include? "facebook"
           puts "Found Facebook profile"
           puts url
+          if !Site.find_by(user_id: self.id, platform: "facebook")
+            self.sites.create(platform: "facebook", profile_url: "#{url}", active: true)
+            puts "Added Facebook profile"
+          end
         elsif url.include? "yelp"
           puts "Found Yelp profile"
           puts url
+          if !Site.find_by(user_id: self.id, platform: "yelp")
+            self.sites.create(platform: "yelp", profile_url: "#{url}", active: true)
+            puts "Added Yelp profile"
+          end
         elsif url.include? "healthgrades"
           puts "Found Healthgrades profile"
           puts url
