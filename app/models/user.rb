@@ -40,20 +40,31 @@ class User < ApplicationRecord
         if url.include? "facebook"
           puts "Found Facebook profile"
           puts url
-          if !Site.find_by(user_id: self.id, platform: "facebook")
+          if !Site.find_by(user_id: self.id, platform: "facebook", profile_url: "#{url}")
             self.sites.create(platform: "facebook", profile_url: "#{url}", active: true)
             puts "Added Facebook profile"
           end
         elsif url.include? "yelp"
           puts "Found Yelp profile"
           puts url
-          if !Site.find_by(user_id: self.id, platform: "yelp")
+          if !Site.find_by(user_id: self.id, platform: "yelp", profile_url: "#{url}")
             self.sites.create(platform: "yelp", profile_url: "#{url}", active: true)
             puts "Added Yelp profile"
           end
         elsif url.include? "healthgrades"
           puts "Found Healthgrades profile"
           puts url
+          if !Site.find_by(user_id: self.id, platform: "healthgrades", profile_url: "#{url}")
+            self.sites.create(platform: "healthgrades", profile_url: "#{url}", active: true)
+            puts "Added Healthgrades profile"
+          end
+        elsif url.include? "grubhub"
+          puts "Found GrubHub profile"
+          puts url
+          if !Site.find_by(user_id: self.id, platform: "grubhub", profile_url: "#{url}")
+            self.sites.create(platform: "grubhub", profile_url: "#{url}", active: true)
+            puts "Added GrubHub profile"
+          end
         end
       end
     end
