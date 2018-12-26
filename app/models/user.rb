@@ -1,7 +1,6 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sites
-  require 'nokogiri'
   require 'open-uri'
 
 
@@ -32,40 +31,29 @@ class User < ApplicationRecord
       Site.where("user_id = ? and platform = ?", "#{self.id}", "google").update(rating: google_rating)
     end
 
+
+
+
     def profile_search
+      healthcare = ["facebook", "yelp", "healthgrades"]
+      restaurant = ["facebook", "yelp", "grubhub"]
+
       self.slugify if !self.slug
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
+
       html.search("cite").each do |cite|
         url = cite.inner_text
-        if url.include? "facebook"
-          puts "Found Facebook profile"
-          puts url
-          if !Site.find_by(user_id: self.id, platform: "facebook", profile_url: "#{url}")
-            self.sites.create(platform: "facebook", profile_url: "#{url}", active: true)
-            puts "Added Facebook profile"
-          end
-        elsif url.include? "yelp"
-          puts "Found Yelp profile"
-          puts url
-          if !Site.find_by(user_id: self.id, platform: "yelp", profile_url: "#{url}")
-            self.sites.create(platform: "yelp", profile_url: "#{url}", active: true)
-            puts "Added Yelp profile"
-          end
-        elsif url.include? "healthgrades"
-          puts "Found Healthgrades profile"
-          puts url
-          if !Site.find_by(user_id: self.id, platform: "healthgrades", profile_url: "#{url}")
-            self.sites.create(platform: "healthgrades", profile_url: "#{url}", active: true)
-            puts "Added Healthgrades profile"
-          end
-        elsif url.include? "grubhub"
-          puts "Found GrubHub profile"
-          puts url
-          if !Site.find_by(user_id: self.id, platform: "grubhub", profile_url: "#{url}")
-            self.sites.create(platform: "grubhub", profile_url: "#{url}", active: true)
-            puts "Added GrubHub profile"
+        restaurant.each do |profile|
+          if url.include? "#{profile}"
+            puts "Found #{profile.capitalize} profile"
+            puts url
+            if !Site.find_by(user_id: self.id, platform: "#{profile}", profile_url: "#{url}")
+              self.sites.create(platform: "#{profile}", profile_url: "#{url}", active: true)
+              puts "Added #{profile.capitalize} profile"
+            end
           end
         end
       end
     end
+
 end

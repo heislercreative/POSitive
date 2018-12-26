@@ -29,6 +29,8 @@ gem 'bootsnap', '>= 1.1.0', require: false
 
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
 
+gem 'pry'
+
 #ActiveAdmin
 gem 'devise'
 gem 'activeadmin'
