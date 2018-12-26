@@ -1,9 +1,11 @@
 class User < ApplicationRecord
   has_secure_password
   has_many :sites
+  belongs_to :industry
   require 'open-uri'
 
-
+  HEALTHCARE = ["facebook", "yelp", "healthgrades"]
+  RESTAURANT = ["facebook", "yelp", "grubhub"]
 
 
 
@@ -32,18 +34,18 @@ class User < ApplicationRecord
     end
 
 
+    def industry_profiles
+      self.industry.upcase
+    end
 
 
     def profile_search
-      healthcare = ["facebook", "yelp", "healthgrades"]
-      restaurant = ["facebook", "yelp", "grubhub"]
-
       self.slugify if !self.slug
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
 
       html.search("cite").each do |cite|
         url = cite.inner_text
-        restaurant.each do |profile|
+        RESTAURANT.each do |profile|
           if url.include? "#{profile}"
             puts "Found #{profile.capitalize} profile"
             puts url

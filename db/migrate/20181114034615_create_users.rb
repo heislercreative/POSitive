@@ -4,7 +4,6 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.string :email
       t.string :password_digest
       t.string :business_name
-      t.string :industry
       t.string :first_name
       t.string :last_name
       t.string :address
@@ -13,6 +12,7 @@ class CreateUsers < ActiveRecord::Migration[5.2]
       t.integer :zip
       t.integer :phone
       t.string :slug
+      t.integer :industry_id
 
       t.timestamps
     end

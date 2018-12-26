@@ -7,7 +7,10 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-vanguard_skin = User.create(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', industry: 'healthcare', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554)
+Industry.create!(name: "Healthcare")
+Industry.create!(name: "Restaurant")
+
+vanguard_skin = User.create!(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554, industry_id: 1)
 vanguard_skin.sites.create([
   {
     platform: 'facebook', profile_url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
@@ -23,4 +26,4 @@ vanguard_skin.sites.create([
   }
 ])
 
-bird_dog_bbq = User.create(email: 'brennan@heislercreative.com', password: 'testpw2', business_name: 'Bird Dog BBQ', industry: 'restaurant', first_name: 'Brennan', last_name: 'Heisler', address: '5984 Stetson Hills Blvd, Ste 200', city: 'Colorado Springs', state_initials: 'CO', zip: 80923, phone: 5555545555)
+bird_dog_bbq = User.create!(email: 'brennan@heislercreative.com', password: 'testpw2', business_name: 'Bird Dog BBQ', first_name: 'Brennan', last_name: 'Heisler', address: '5984 Stetson Hills Blvd, Ste 200', city: 'Colorado Springs', state_initials: 'CO', zip: 80923, phone: 5555545555, industry_id: 2)
