@@ -1,7 +1,7 @@
 class CreateSites < ActiveRecord::Migration[5.2]
   def change
     create_table :sites do |t|
-      t.string :platform
+      t.integer :platform_id
       t.string :profile_url
       t.boolean :active
       t.integer :priority

@@ -7,22 +7,31 @@
 #   Character.create(name: 'Luke', movie: movies.first)
 AdminUser.create!(email: 'admin@example.com', password: 'password', password_confirmation: 'password') if Rails.env.development?
 
-Industry.create!(name: "Healthcare")
-Industry.create!(name: "Restaurant")
+Industry.create!(name: 'healthcare')
+Industry.create!(name: 'restaurant')
+
+
+Platform.create!(name: 'google')
+Platform.create!(name: 'facebook')
+Platform.create!(name: 'yelp')
+Platform.create!(name: 'tripadvisor')
+Platform.create!(name: 'grubhub')
+Platform.create!(name: 'healthgrades')
+
 
 vanguard_skin = User.create!(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554, industry_id: 1)
 vanguard_skin.sites.create([
   {
-    platform: 'facebook', profile_url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
+    platform_id: 2, profile_url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
   },
   {
-    platform: 'google', profile_url: 'https://www.google.com/search?client=safari&rls=en&q=vanguard+skin+specialists&ie=UTF-8&oe=UTF-8', active: true, priority: 1
+    platform_id: 1, profile_url: 'https://www.google.com/search?client=safari&rls=en&q=vanguard+skin+specialists&ie=UTF-8&oe=UTF-8', active: true, priority: 1
   },
   {
-    platform: 'yelp', profile_url: 'https://www.yelp.com/biz/vanguard-skin-specialists-colorado-springs-2', active: true, priority: 4
+    platform_id: 3, profile_url: 'https://www.yelp.com/biz/vanguard-skin-specialists-colorado-springs-2', active: true, priority: 4
   },
   {
-    platform: 'healthgrades', profile_url: 'https://www.healthgrades.com/group-directory/co-colorado/colorado-springs/vanguard-skin-specialists-y7lxt7', active: true, priority: 3
+    platform_id: 5, profile_url: 'https://www.healthgrades.com/group-directory/co-colorado/colorado-springs/vanguard-skin-specialists-y7lxt7', active: true, priority: 3
   }
 ])
 

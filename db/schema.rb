@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_26_014317) do
+ActiveRecord::Schema.define(version: 2018_12_27_015804) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -44,8 +44,21 @@ ActiveRecord::Schema.define(version: 2018_12_26_014317) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "industry_platforms", force: :cascade do |t|
+    t.integer "industry_id"
+    t.integer "platform_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
+  create_table "platforms", force: :cascade do |t|
+    t.string "name"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "sites", force: :cascade do |t|
-    t.string "platform"
+    t.integer "platform_id"
     t.string "profile_url"
     t.boolean "active"
     t.integer "priority"
