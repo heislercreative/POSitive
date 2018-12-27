@@ -22,12 +22,14 @@ class User < ApplicationRecord
 
     # Move to Create route in UsersController
     def slugify
-      self.slug = self.business_name.gsub(/\s+/, "").downcase
-      puts "Slugified!"
+      if !self.slug
+        self.slug = self.business_name.gsub(/\s+/, "").downcase
+        puts "Slugified!"
+      end
     end
 
     def scrape_google
-      self.slugify if !self.slug
+      self.slugify
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       google_rating = html.css("span.ul7Gbc").text.to_f
       Site.where("user_id = ? and platform = ?", "#{self.id}", "google").update(rating: google_rating)
@@ -40,7 +42,7 @@ class User < ApplicationRecord
 
 
     def profile_search
-      self.slugify if !self.slug
+      self.slugify
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
 
       html.search("cite").each do |cite|
