@@ -23,37 +23,34 @@ class User < ApplicationRecord
     # Move to Create route in UsersController
     def slugify
       if !self.slug
-        self.slug = self.business_name.gsub(/\s+/, "").downcase
+        self.update(slug: "#{self.business_name.gsub(/\s+/, "").downcase}")
         puts "Slugified!"
       end
     end
 
+
     def scrape_google
-      self.slugify
+      slugify
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
       google_rating = html.css("span.ul7Gbc").text.to_f
       Site.where("user_id = ? and platform = ?", "#{self.id}", "google").update(rating: google_rating)
     end
 
 
-    def industry_profiles
-      self.industry.upcase
-    end
-
-
     def profile_search
-      self.slugify
+      slugify
       html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
 
       html.search("cite").each do |cite|
         url = cite.inner_text
-        RESTAURANT.each do |profile|
-          if url.include? "#{profile}"
-            puts "Found #{profile.capitalize} profile"
+        self.industry.platforms.each do |platform|
+          p = platform.name
+          if url.include? "#{p}"
+            puts "Found #{p.capitalize} profile"
             puts url
-            if !Site.find_by(user_id: self.id, platform: "#{profile}", profile_url: "#{url}")
-              self.sites.create(platform: "#{profile}", profile_url: "#{url}", active: true)
-              puts "Added #{profile.capitalize} profile"
+            if !Site.find_by(user_id: self.id, platform: platform, profile_url: "#{url}")
+              self.sites.create(platform: platform, profile_url: "#{url}", active: true)
+              puts "Added #{p.capitalize} profile"
             end
           end
         end
