@@ -4,10 +4,6 @@ class User < ApplicationRecord
   belongs_to :industry
   require 'open-uri'
 
-  HEALTHCARE = ["facebook", "yelp", "healthgrades"]
-  RESTAURANT = ["facebook", "yelp", "grubhub"]
-
-
 
   #Scraper Methods
     # def scrape_yelp
