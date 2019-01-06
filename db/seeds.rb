@@ -11,28 +11,36 @@ Industry.create!(name: 'healthcare')
 Industry.create!(name: 'restaurant')
 
 
-Platform.create!(name: 'google')
-Platform.create!(name: 'facebook')
-Platform.create!(name: 'yelp')
-Platform.create!(name: 'tripadvisor')
-Platform.create!(name: 'grubhub')
-Platform.create!(name: 'healthgrades')
+Platform.create!(name: 'google', url: 'www.google.com')
+Platform.create!(name: 'facebook', url: 'www.facebook.com')
+Platform.create!(name: 'yelp', url: 'www.yelp.com')
+Platform.create!(name: 'tripadvisor', url: 'www.tripadvisor.com')
+Platform.create!(name: 'grubhub', url: 'www.grubhub.com')
+Platform.create!(name: 'healthgrades', url: 'www.healthgrades.com')
 
+
+health = IndustryPlatform.create!([
+  {industry_id: 1, platform_id: 1}, {industry_id: 1, platform_id: 2}, {industry_id: 1, platform_id: 3}, {industry_id: 1, platform_id: 6}
+])
+
+rest = IndustryPlatform.create!([
+  {industry_id: 2, platform_id: 1}, {industry_id: 2, platform_id: 2}, {industry_id: 2, platform_id: 3}, {industry_id: 2, platform_id: 4}, {industry_id: 2, platform_id: 5}
+])
 
 vss = User.create!(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554, industry_id: 1)
 vss_1 = vss.locales.create(address: vss.address, city: vss.city, state_initials: vss.state_initials, zip: vss.zip)
 vss_1.sites.create([
   {
-    platform_id: 2, profile_url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
+    platform_id: 2, url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
   },
   {
-    platform_id: 1, profile_url: 'https://www.google.com/search?client=safari&rls=en&q=vanguard+skin+specialists&ie=UTF-8&oe=UTF-8', active: true, priority: 1
+    platform_id: 1, url: 'https://www.google.com/search?client=safari&rls=en&q=vanguard+skin+specialists&ie=UTF-8&oe=UTF-8', active: true, priority: 1
   },
   {
-    platform_id: 3, profile_url: 'https://www.yelp.com/biz/vanguard-skin-specialists-colorado-springs-2', active: true, priority: 4
+    platform_id: 3, url: 'https://www.yelp.com/biz/vanguard-skin-specialists-colorado-springs-2', active: true, priority: 4
   },
   {
-    platform_id: 5, profile_url: 'https://www.healthgrades.com/group-directory/co-colorado/colorado-springs/vanguard-skin-specialists-y7lxt7', active: true, priority: 3
+    platform_id: 5, url: 'https://www.healthgrades.com/group-directory/co-colorado/colorado-springs/vanguard-skin-specialists-y7lxt7', active: true, priority: 3
   }
 ])
 

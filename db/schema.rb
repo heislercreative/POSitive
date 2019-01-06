@@ -65,13 +65,14 @@ ActiveRecord::Schema.define(version: 2019_01_06_220228) do
 
   create_table "platforms", force: :cascade do |t|
     t.string "name"
+    t.string "url"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
   create_table "sites", force: :cascade do |t|
     t.integer "platform_id"
-    t.string "profile_url"
+    t.string "url"
     t.boolean "active"
     t.integer "priority"
     t.float "rating"
