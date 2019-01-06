@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_27_015804) do
+ActiveRecord::Schema.define(version: 2019_01_06_220228) do
 
   create_table "active_admin_comments", force: :cascade do |t|
     t.string "namespace"
@@ -51,6 +51,18 @@ ActiveRecord::Schema.define(version: 2018_12_27_015804) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "locales", force: :cascade do |t|
+    t.string "nickname"
+    t.string "address"
+    t.string "city"
+    t.string "state_initials"
+    t.integer "zip"
+    t.string "slug"
+    t.integer "user_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+  end
+
   create_table "platforms", force: :cascade do |t|
     t.string "name"
     t.datetime "created_at", null: false
@@ -63,7 +75,7 @@ ActiveRecord::Schema.define(version: 2018_12_27_015804) do
     t.boolean "active"
     t.integer "priority"
     t.float "rating"
-    t.integer "user_id"
+    t.integer "locale_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end

@@ -19,8 +19,9 @@ Platform.create!(name: 'grubhub')
 Platform.create!(name: 'healthgrades')
 
 
-vanguard_skin = User.create!(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554, industry_id: 1)
-vanguard_skin.sites.create([
+vss = User.create!(email: 'brennan@vanguardskin.com', password: 'testpw1', business_name: 'Vanguard Skin Specialists', first_name: 'Brennan', last_name: 'Heisler', address: '9348 Grand Cordera Pwky', city: 'Colorado Springs', state_initials: 'CO', zip: 80924, phone: 5555545554, industry_id: 1)
+vss_1 = vss.locales.create(address: vss.address, city: vss.city, state_initials: vss.state_initials, zip: vss.zip)
+vss_1.sites.create([
   {
     platform_id: 2, profile_url: 'https://www.facebook.com/VanguardSkin/', active: true, priority: 2
   },
@@ -35,4 +36,5 @@ vanguard_skin.sites.create([
   }
 ])
 
-bird_dog_bbq = User.create!(email: 'brennan@heislercreative.com', password: 'testpw2', business_name: 'Bird Dog BBQ', first_name: 'Brennan', last_name: 'Heisler', address: '5984 Stetson Hills Blvd, Ste 200', city: 'Colorado Springs', state_initials: 'CO', zip: 80923, phone: 5555545555, industry_id: 2)
+bbq = User.create!(email: 'brennan@heislercreative.com', password: 'testpw2', business_name: 'Bird Dog BBQ', first_name: 'Brennan', last_name: 'Heisler', address: '5984 Stetson Hills Blvd, Ste 200', city: 'Colorado Springs', state_initials: 'CO', zip: 80923, phone: 5555545555, industry_id: 2)
+bbq_1 = bbq.locales.create(address: bbq.address, city: bbq.city, state_initials: bbq.state_initials, zip: bbq.zip)
