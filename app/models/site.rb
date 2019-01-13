@@ -10,6 +10,12 @@ class Site < ApplicationRecord
     end
   end
 
+  def google_info
+    html = Nokogiri::HTML(open(self.url))
+    rating = html.css("span.ul7Gbc").text.to_f
+    self.update(rating: rating)
+  end
+
   def yelp_info
     slugify
     @resp = Faraday.get "https://api.yelp.com/v3/businesses/#{self.slug}" do |req|

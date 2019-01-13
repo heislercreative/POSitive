@@ -21,19 +21,18 @@ class Locale < ApplicationRecord
       puts "Slugified!"
     end
   end
-
-
-  def scrape_google
-    slugify
-    html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
-    google_rating = html.css("span.ul7Gbc").text.to_f
-    # Site.where("user_id = ? and platform = ?", "#{self.id}", "google").update(rating: google_rating)
-  end
-
+  
 
   def profile_search
     slugify
-    html = Nokogiri::HTML(open("http://www.google.com/search?num=20&q=#{slug}"))
+    google_search = "http://www.google.com/search?num=20&q=#{slug}"
+    google = Platform.find_by(name: 'google')
+    if !Site.find_by(locale_id: self.id, platform: google, url: google_search)
+      self.sites.create(platform: google, url: google_search, active: true)
+      puts "Added Google profile"
+    end
+
+    html = Nokogiri::HTML(open(google_search))
 
     html.search("cite").each do |cite|
       url = cite.inner_text
