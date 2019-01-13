@@ -28,6 +28,7 @@ gem 'bootsnap', '>= 1.1.0', require: false
 # gem 'rack-cors'
 
 gem 'nokogiri', '~> 1.6', '>= 1.6.7.2'
+gem 'faraday'
 
 gem 'pry'
 
