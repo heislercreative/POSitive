@@ -1,5 +1,5 @@
 ActiveAdmin.register Site do
-  permit_params :platform_id, :url, :active, :priority, :rating, :locale_id
+  permit_params :platform_id, :url, :active, :priority, :rating, :slug, :locale_id
 
 # See permitted parameters documentation:
 # https://github.com/activeadmin/activeadmin/blob/master/docs/2-resource-customization.md#setting-up-strong-parameters

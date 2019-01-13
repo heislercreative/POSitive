@@ -6,6 +6,7 @@ class CreateSites < ActiveRecord::Migration[5.2]
       t.boolean :active
       t.integer :priority
       t.float :rating
+      t.string :slug
       t.integer :locale_id
 
       t.timestamps

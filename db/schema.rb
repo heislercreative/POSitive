@@ -76,6 +76,7 @@ ActiveRecord::Schema.define(version: 2019_01_06_220228) do
     t.boolean "active"
     t.integer "priority"
     t.float "rating"
+    t.string "slug"
     t.integer "locale_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
