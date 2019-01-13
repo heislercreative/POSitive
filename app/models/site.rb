@@ -17,7 +17,7 @@ class Site < ApplicationRecord
     end
     resp_body = JSON.parse(@resp.body)
     rating = resp_body["rating"]
-    puts "#{rating}"
+    puts rating
     self.update(rating: rating)
   end
 
