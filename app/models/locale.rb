@@ -21,29 +21,36 @@ class Locale < ApplicationRecord
       puts "Slugified!"
     end
   end
-  
+
+
+  def google_search
+    url = "http://www.google.com/search?num=20&q=#{slug}"
+    google = Platform.find_by(name: 'google')
+    if !Site.find_by(locale_id: self.id, platform: google, url: url)
+      self.sites.create(platform: google, url: url, active: true)
+      puts "Added Google profile"
+    end
+    url
+  end
+
 
   def profile_search
     slugify
-    google_search = "http://www.google.com/search?num=20&q=#{slug}"
-    google = Platform.find_by(name: 'google')
-    if !Site.find_by(locale_id: self.id, platform: google, url: google_search)
-      self.sites.create(platform: google, url: google_search, active: true)
-      puts "Added Google profile"
-    end
+    google_url = self.google_search
 
-    html = Nokogiri::HTML(open(google_search))
+    html = Nokogiri::HTML(open(google_url))
 
     html.search("cite").each do |cite|
       url = cite.inner_text
       self.user.industry.platforms.each do |platform|
-        p = platform.url
-        if url.include? "#{p}"
-          puts "Found #{p.capitalize} profile"
+        p_url = platform.url
+        p_name = platform.name.capitalize
+        if url.include? "#{p_url}"
+          puts "Found #{p_name} profile"
           puts url
           if !Site.find_by(locale_id: self.id, platform: platform, url: "#{url}")
             self.sites.create(platform: platform, url: "#{url}", active: true)
-            puts "Added #{p.capitalize} profile"
+            puts "Added #{p_name} profile"
           end
         end
       end
