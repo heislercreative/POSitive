@@ -19,6 +19,12 @@ class Site < ApplicationRecord
     self.update(rating: rating, review_count: review_count)
   end
 
+  def facebook_rating
+    html = Nokogiri::HTML(open(self.url))
+    rating = html.css("span._331d").text.to_f
+    self.update(rating: rating)
+  end
+
   def yelp_info
     slugify
     @resp = Faraday.get "https://api.yelp.com/v3/businesses/#{self.slug}" do |req|
