@@ -10,10 +10,13 @@ class Site < ApplicationRecord
     end
   end
 
+
+# Ratings and review count API/Scraper methods
   def google_info
     html = Nokogiri::HTML(open(self.url))
     rating = html.css("span.ul7Gbc").text.to_f
-    self.update(rating: rating)
+    review_count = html.xpath("//span[@style='color:#777']").text.scan(/\s...\s/)[0].gsub(/\s/, '').to_i
+    self.update(rating: rating, review_count: review_count)
   end
 
   def yelp_info
