@@ -38,4 +38,11 @@ class Site < ApplicationRecord
     self.update(rating: rating, review_count: review_count)
   end
 
+  def tripadvisor_info
+    html = Nokogiri::HTML(open(self.url.gsub(/\s/, '')))
+    rating = html.css("span.overallRating").text.to_f
+    # review_count = html.css("span.seeAllReviews").text.to_i
+    self.update(rating: rating)
+  end
+
 end
