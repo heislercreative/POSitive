@@ -6,6 +6,10 @@ class UsersController < ApiController
 
   def show
     @user = User.find(params[:id])
-    render json: @user.to_json(:include => {:sites => {:only => [:platform, :profile_url, :priority]}})
+    render json: @user.to_json(:except => [:created_at, :updated_at], :include =>
+      {:locales => {:except => [:user_id, :created_at, :updated_at], :include =>
+        {:sites => {:only => [:platform_id, :url, :priority, :rating]}
+      }
+    }})
   end
 end
